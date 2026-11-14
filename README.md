@@ -119,6 +119,9 @@ GeoPulse-Hyper-Local-Retail-Mobility-Analytics/
 │   ├── generate_gps_data.py
 │   └── analyze_gps_data.py
 │
+├── sql/
+│   └── snowflake_setup.sql
+│
 ├── README.md
 └── .gitignore
 ```
@@ -127,7 +130,7 @@ Additional directories and modules will be introduced as development progresses.
 
 ## 7. Current Project Status
 
-**Current Phase:** Week 1 – Data Synthesis and Initial Analysis
+**Current Phase:** Week 1 – Data Synthesis and Snowflake Setup
 
 ### Completed
 
@@ -141,17 +144,22 @@ Additional directories and modules will be introduced as development progresses.
 - Identified peak and lowest hourly activity.
 - Generated an hourly activity visualization.
 - Exported hourly analysis results to CSV.
-- Committed and pushed the work to GitHub.
+- Created a Snowflake account and configured the project database.
+- Created the `GEOPULSE_DB` database and `RAW` schema.
+- Created the `GPS_PINGS` table with a GEOGRAPHY column.
+- Loaded 10,000 GPS records into Snowflake.
+- Populated geographic points using Snowflake's `ST_MAKEPOINT` function.
+- Documented Snowflake setup and validation SQL in `sql/snowflake_setup.sql`.
+- Committed and pushed previous development work to GitHub.
 
-### Pending
+### Upcoming
 
-- Snowflake environment setup.
-- Create Snowflake tables with GEOGRAPHY columns.
-- Load raw GPS data into Snowflake.
 - Prepare store location data.
 - Configure Apache Sedona and PySpark.
-- Perform spatial joins.
+- Create 500-meter store catchment areas.
+- Perform spatial joins between GPS pings and store polygons.
 - Build dbt transformation models.
+- Calculate unique visitors per store per hour.
 
 **Important:** The current hourly analysis measures unique devices across the entire dataset. It is not yet store-level unique visitor analysis. Store-level metrics will be developed after spatial processing.
 
@@ -163,4 +171,4 @@ The ultimate goal of GeoPulse is to build a hyper-local retail mobility analytic
 
 **Project:** GeoPulse – Hyper-Local Retail Mobility Analytics  
 **Domain:** Retail Strategy & Geospatial Analytics  
-**Development Environment:** Python | VS Code | 
+**Development Environment:** Python | VS Code | Snowflake | GitHub
