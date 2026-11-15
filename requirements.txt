@@ -1,0 +1,5 @@
+pyspark==3.5.8
+apache-sedona==1.9.1
+pandas==3.1.1
+matplotlib==3.11.2
+shapely==2.2.0
