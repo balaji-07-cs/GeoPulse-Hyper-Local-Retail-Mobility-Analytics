@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: GEOPULSE_DB
+    schema: RAW
+    tables:
+      - name: gps_pings
+        identifier: GPS_PINGS

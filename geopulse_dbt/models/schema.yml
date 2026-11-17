@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_gps_pings
+    description: "Cleaned GPS ping records from Snowflake."
+    columns:
+      - name: DEVICE_ID
+        data_tests:
+          - not_null
+      - name: PING_TIMESTAMP
+        data_tests:
+          - not_null
+
+  - name: store_hourly_visitors
+    description: "Unique visitors per store per hour."
+    columns:
+      - name: STORE_ID
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['TNG01', 'ANN01', 'VEL01', 'ADY01']
+      - name: HOUR_START
+        data_tests:
+          - not_null
+      - name: UNIQUE_VISITORS
+        data_tests:
+          - not_null

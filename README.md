@@ -169,6 +169,35 @@ The ultimate goal of GeoPulse is to build a hyper-local retail mobility analytic
 
 ---
 
+
+### Week 2 – Spatial Analytics and dbt (Completed)
+
+Implemented a geospatial analytics pipeline using Apache Sedona, PySpark, Snowflake, and dbt.
+
+**Completed tasks:**
+- Generated 500-metre store catchment areas using geospatial buffers.
+- Processed 10,000 synthetic GPS pings using Apache Sedona.
+- Performed spatial joins to identify GPS pings within store catchments.
+- Calculated distinct device counts per store per hour.
+- Connected dbt to Snowflake.
+- Created a GPS staging view (`stg_gps_pings`).
+- Created an hourly visitor analytics table (`store_hourly_visitors`).
+- Added and successfully executed six dbt data quality tests.
+
+**Results:**
+- GPS records processed: 10,000
+- Matched GPS pings: 6,860
+- Synthetic stores analyzed: 4
+- Hourly visitor summary records: 96
+- dbt models executed successfully: 2
+- dbt tests passed: 6/6
+
+**Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
+
+**Note:** GPS records and store coordinates are synthetic. Visitor counts represent distinct devices detected within 500-metre catchment areas, not verified physical visits.
+
+
+
 **Project:** GeoPulse – Hyper-Local Retail Mobility Analytics  
 **Domain:** Retail Strategy & Geospatial Analytics  
 **Development Environment:** Python | VS Code | Snowflake | GitHub
