@@ -192,6 +192,18 @@ Implemented a geospatial analytics pipeline using Apache Sedona, PySpark, Snowfl
 - dbt models executed successfully: 2
 - dbt tests passed: 6/6
 
+
+### Hourly Store Visitor Visualization
+- Created a Python visualization script to plot hourly unique device counts across all four synthetic retail store locations.
+- Generated a line chart comparing hourly activity patterns between stores.
+- Saved the visualization to `reports/figures/store_hourly_visitors.png`.
+- Script: `src/plot_store_hourly_visitors.py`
+
+**Output:** Hourly Unique Device Counts by Store chart.
+
+This visualization helps compare hourly activity patterns across store catchment areas and identify potential peak activity periods.
+
+
 **Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
 
 **Note:** GPS records and store coordinates are synthetic. Visitor counts represent distinct devices detected within 500-metre catchment areas, not verified physical visits.
