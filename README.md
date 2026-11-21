@@ -203,6 +203,25 @@ Implemented a geospatial analytics pipeline using Apache Sedona, PySpark, Snowfl
 
 This visualization helps compare hourly activity patterns across store catchment areas and identify potential peak activity periods.
 
+### Automated Store Performance Insights
+
+- Developed `src/generate_store_insights.py` to automatically generate store performance reports.
+- Analyzed hourly unique-device counts across all four synthetic retail stores.
+- Identified the highest total hourly count and the highest single-hour activity.
+- Generated store performance rankings.
+- Included average hourly counts, peak activity counts, and peak activity hours.
+- Saved the automated Markdown report to `reports/store_insights.md`.
+
+**Generated Report:** `reports/store_insights.md`
+
+**Key Highlights:**
+- T_Nagar ranked first with 1,692 total hourly counts.
+- Anna Nagar ranked second with 1,683.
+- Velachery ranked third with 1,641.
+- Adyar ranked fourth with 1,606.
+
+*Note: Total hourly counts represent the sum of hourly unique-device counts, not distinct daily visitors. All results are based on synthetic GPS data.*
+
 
 **Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
 
