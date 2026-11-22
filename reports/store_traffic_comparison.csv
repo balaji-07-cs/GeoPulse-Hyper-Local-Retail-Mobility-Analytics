@@ -1,0 +1,5 @@
+StoreID,StoreName,TotalHourlyVisitors,AverageHourlyVisitors,PeakVisitors,LowestVisitors,TrafficSharePercentage,TrafficRank
+TNG01,T_Nagar_Store,1692,70.5,81,54,25.551192993053455,1
+ANN01,Anna_Nagar_Store,1683,70.125,90,55,25.41528239202658,2
+VEL01,Velachery_Store,1641,68.375,83,50,24.781032920567807,3
+ADY01,Adyar_Store,1606,66.91666666666667,84,48,24.25249169435216,4

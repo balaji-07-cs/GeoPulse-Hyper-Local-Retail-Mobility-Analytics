@@ -222,6 +222,26 @@ This visualization helps compare hourly activity patterns across store catchment
 
 *Note: Total hourly counts represent the sum of hourly unique-device counts, not distinct daily visitors. All results are based on synthetic GPS data.*
 
+### Store Traffic Comparison Analysis
+
+- Developed `src/compare_store_traffic.py` to compare traffic patterns across four retail stores.
+- Calculated total hourly visitor counts and average hourly counts.
+- Identified peak and lowest hourly visitor counts for each store.
+- Calculated each store's percentage share of total hourly traffic.
+- Ranked stores based on their total hourly visitor counts.
+- Exported the comparison results to `reports/store_traffic_comparison.csv`.
+
+**Traffic Ranking:**
+
+| Rank | Store | Total Hourly Counts | Traffic Share |
+|---|---|---:|---:|
+| 1 | T_Nagar | 1,692 | 25.55% |
+| 2 | Anna Nagar | 1,683 | 25.42% |
+| 3 | Velachery | 1,641 | 24.78% |
+| 4 | Adyar | 1,606 | 24.25% |
+
+*Note: Traffic counts represent the sum of hourly unique-device counts, not daily distinct visitors. Results are based on synthetic GPS data.*
+
 
 **Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
 
