@@ -242,6 +242,25 @@ This visualization helps compare hourly activity patterns across store catchment
 
 *Note: Traffic counts represent the sum of hourly unique-device counts, not daily distinct visitors. Results are based on synthetic GPS data.*
 
+### Store Traffic Comparison Visualizations
+
+Developed `src/visualize_store_comparison.py` to generate visual insights from store traffic comparison data.
+
+**Visualizations generated:**
+
+1. **Store Traffic Comparison:** Bar chart comparing total hourly visitor counts across four retail stores.
+2. **Store Traffic Share:** Pie chart illustrating each store's percentage contribution to total hourly traffic.
+3. **Peak vs Lowest Traffic:** Grouped bar chart comparing peak and lowest hourly unique-device counts across stores.
+
+**Generated Outputs:**
+- `reports/figures/store_traffic_comparison.png`
+- `reports/figures/store_traffic_share.png`
+- `reports/figures/peak_vs_lowest_traffic.png`
+
+**Technologies:** Python, Pandas, Matplotlib.
+
+*Note: All metrics are derived from synthetic GPS data. Hourly counts represent distinct devices within each hour, not daily distinct visitors.*
+
 
 **Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
 
