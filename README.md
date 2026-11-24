@@ -261,6 +261,27 @@ Developed `src/visualize_store_comparison.py` to generate visual insights from s
 
 *Note: All metrics are derived from synthetic GPS data. Hourly counts represent distinct devices within each hour, not daily distinct visitors.*
 
+### Cross-Store Device Overlap Analysis
+
+GeoPulse includes a cross-store device overlap analysis to identify devices detected within multiple store catchment areas.
+
+**Features:**
+- Identifies devices matched to multiple stores.
+- Calculates shared device counts for every store pair.
+- Computes Jaccard similarity and overlap percentages.
+- Generates CSV reports and a store-overlap heatmap.
+
+**Generated outputs:**
+- `reports/device_store_overlap.csv`
+- `reports/store_pair_overlap.csv`
+- `reports/store_cannibalization_report.md`
+- `reports/figures/store_overlap_heatmap.png`
+
+**Key finding:** The highest observed overlap was between Anna Nagar and Velachery, with 718 shared devices and a Jaccard similarity of 73.12%.
+
+**Methodology note:** The GPS dataset is synthetic, and its pings are independently generated rather than continuous device trajectories. Therefore, the overlap results are analytical indicators, not proof of actual customer journeys or retail cannibalization.
+
+
 
 **Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
 
