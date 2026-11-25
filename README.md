@@ -1,108 +1,505 @@
 # GeoPulse – Hyper-Local Retail Mobility Analytics
 
+A geospatial retail analytics project that uses synthetic GPS mobility data to analyze store-level traffic patterns, evaluate retail catchment areas, and identify potential audience overlap between retail locations.
+
+---
+
 ## 1. Project Overview
 
-GeoPulse is a geospatial retail analytics project designed to understand customer mobility patterns and evaluate retail store performance using anonymized, synthetic GPS location data.
+**GeoPulse – Hyper-Local Retail Mobility Analytics** is a data engineering and geospatial analytics project designed to help retailers understand location-based mobility patterns and evaluate store performance.
 
-The project aims to help retailers understand foot traffic, analyze store catchment areas, identify overlapping customer audiences, and detect potential cannibalization between nearby retail locations.
+The project processes synthetic GPS observations to identify devices within retail store catchment areas, calculate hourly device counts, compare store traffic patterns, and analyze potential overlap between retail locations.
 
-By combining geospatial processing, modern data engineering, and interactive visualization, GeoPulse aims to transform location data into actionable retail business insights.
+By combining geospatial processing, cloud data warehousing, data transformation, and visualization, GeoPulse demonstrates how location intelligence can support retail strategy and site-selection decisions.
+
+### Key Capabilities
+
+- Synthetic GPS data generation and analysis.
+- Geospatial store catchment area creation.
+- GPS-to-store spatial joins.
+- Hourly store-level device-count analysis.
+- Snowflake data warehousing.
+- dbt-based data transformation and testing.
+- Store performance comparison.
+- Cross-store device overlap analysis.
+- Automated reports and visualizations.
+
+---
 
 ## 2. Project Objectives
 
-- Generate synthetic GPS mobility datasets.
-- Analyze hourly foot traffic patterns.
-- Identify store catchment areas using geospatial processing.
-- Calculate unique visitors per store per hour.
-- Identify potential cannibalization between retail locations.
-- Visualize geographic foot traffic patterns.
-- Develop an interactive retail mobility dashboard.
+- Generate synthetic anonymized GPS mobility datasets.
+- Analyze hourly location-based activity.
+- Create 500-metre catchment areas around retail stores.
+- Identify GPS observations within store catchment areas.
+- Calculate distinct device counts per store per hour.
+- Compare traffic patterns across retail locations.
+- Identify devices detected within multiple store catchments.
+- Calculate shared-device counts and Jaccard similarity.
+- Generate analytical reports and visualizations.
+
+---
 
 ## 3. Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| Python | Data generation and processing |
-| Pandas | Data analysis |
+| Python 3.11 | Data generation and processing |
+| Pandas | Data manipulation and analysis |
 | NumPy | Numerical operations |
 | Matplotlib | Data visualization |
-| Snowflake | Geospatial data lakehouse |
-| Apache Spark / PySpark | Large-scale data processing |
-| Apache Sedona | Geospatial transformations and spatial joins |
-| dbt | Data transformation and modeling |
-| Kepler.gl | Geospatial visualization |
-| React | Dashboard frontend |
-| Apache Airflow | Workflow orchestration |
-| Git & GitHub | Version control |
+| PySpark | Distributed data processing |
+| Apache Sedona | Geospatial processing and spatial joins |
+| Shapely | Geospatial geometry operations |
+| Snowflake | Cloud data warehousing and geospatial storage |
+| SQL | Database queries and transformations |
+| dbt | Data transformation and data quality testing |
+| Git | Version control |
+| GitHub | Source code management |
 
-## 4. Official Project Timeline
+### Planned Technologies
 
-### Week 1 – Data Synthesis and Snowflake Setup
+The following technologies are potential future enhancements and are not part of the currently completed implementation:
 
-- Generate synthetic anonymized GPS data containing DeviceID, Lat, Long, and Timestamp.
-- Set up Snowflake.
-- Create database tables using GEOGRAPHY columns.
-- Load raw GPS ping data into Snowflake.
+- React – Interactive dashboard frontend.
+- Kepler.gl – Advanced geospatial visualization.
+- Apache Airflow – Workflow orchestration.
+- H3 – Hexagonal spatial indexing and aggregation.
 
-### Week 2 – Spatial Processing and ELT Modeling
+---
 
-- Configure Apache Sedona with PySpark.
-- Create 500-meter catchment areas around target store locations.
-- Perform spatial joins between GPS pings and store catchment polygons.
-- Configure dbt to run inside Snowflake.
-- Build models to calculate unique visitors per store per hour.
+## 4. Dataset Information
 
-### Mid-Project Review
+GeoPulse uses a synthetic GPS dataset generated using Python.
 
-- Validate spatial intersections using millions of GPS points.
-- Check PySpark processing and memory performance.
-- Verify dbt compilation and data integrity.
-- Validate morning and evening foot traffic patterns.
+### Dataset Attributes
 
-### Week 3 – Cannibalization Analysis and Map Interface
-
-- Develop cannibalization analysis using unique DeviceIDs.
-- Identify devices visiting multiple retail locations.
-- Calculate the percentage of shared visitors between stores.
-- Integrate Kepler.gl into a React frontend.
-- Connect the dashboard to aggregated Snowflake data.
-
-### Week 4 – Automation and Finalization
-
-- Orchestrate PySpark and dbt workflows using Apache Airflow.
-- Implement H3 hexagonal spatial indexing.
-- Develop 3D foot traffic visualizations.
-- Add an interactive 24-hour timeline slider.
-- Refine and finalize the retail mobility dashboard.
-
-### Final Project Review
-
-Deliver a specialized geospatial analytics pipeline and interactive 3D mobility dashboard to support retail location and real-estate decisions.
-
-## 5. Dataset Information
-
-The synthetic GPS dataset contains the following fields:
-
-| Column | Description |
+| Attribute | Description |
 |---|---|
-| DeviceID | Anonymous synthetic device identifier |
+| DeviceID | Synthetic anonymous device identifier |
 | Lat | Latitude coordinate |
 | Long | Longitude coordinate |
-| Timestamp | Date and time of GPS observation |
+| Timestamp | GPS observation timestamp |
 
-### Current Dataset
+### Dataset Summary
 
-- Records: 10,000 GPS pings
-- Unique devices: 1,000
-- Pings per device: 10
-- Geographic area: Chennai, India
-- Date: 12 November 2026
+| Metric | Value |
+|---|---:|
+| Total GPS records | 10,000 |
+| Unique devices | 1,000 |
+| GPS records per device | 10 |
+| Geographic area | Chennai, India |
+| Observation date | 12 November 2026 |
+| Synthetic retail locations | 4 |
 
-The dataset is synthetic and does not contain real individual tracking information.
+**Important data limitation:** GPS observations are independently generated around selected retail-area coordinates. They do not represent continuous device movement trajectories or verified customer journeys.
 
-**Data limitation:** Current GPS points are independently generated around selected retail-area coordinates. They do not yet represent continuous device movement trajectories.
+The dataset contains no real individual tracking information.
 
-## 6. Repository Structure
+---
+
+## 5. Store Locations
+
+The project analyzes four representative synthetic retail locations in Chennai.
+
+| Store ID | Store Name | Latitude | Longitude |
+|---|---|---:|---:|
+| TNG01 | T_Nagar_Store | 13.0418 | 80.2341 |
+| ANN01 | Anna_Nagar_Store | 13.0850 | 80.2101 |
+| VEL01 | Velachery_Store | 12.9750 | 80.2200 |
+| ADY01 | Adyar_Store | 13.0012 | 80.2565 |
+
+A 500-metre catchment area is generated around each store location.
+
+---
+
+## 6. Project Architecture
+
+The GeoPulse implementation follows a geospatial analytics and ELT workflow.
+
+```text
+                 SYNTHETIC GPS DATA
+                         |
+                         v
+              Python Data Generation
+                         |
+                         v
+                GPS Dataset (CSV)
+                         |
+             +-----------+-----------+
+             |                       |
+             v                       v
+       Snowflake Upload       Local Processing
+             |                       |
+             v                       v
+        GPS_PINGS Table       PySpark + Sedona
+             |                       |
+             |                       v
+             |               Store Catchment Areas
+             |                       |
+             |                       v
+             |                 Spatial Joins
+             |                       |
+             |                       v
+             |             GPS-to-Store Matches
+             |                       |
+             +-----------+-----------+
+                         |
+                         v
+                   dbt Models
+                         |
+                         v
+              Store Hourly Analytics
+                         |
+             +-----------+-----------+
+             |                       |
+             v                       v
+      Store Performance       Cross-Store Overlap
+          Analysis                 Analysis
+             |                       |
+             v                       v
+       CSV / Reports            CSV / Reports
+             |                       |
+             +-----------+-----------+
+                         |
+                         v
+                   Visualizations
+```
+
+---
+
+## 7. Implementation Details
+
+### 7.1 Synthetic GPS Data Generation
+
+**Script:** `src/generate_gps_data.py`
+
+- Generated 10,000 synthetic GPS observations.
+- Created 1,000 synthetic device identifiers.
+- Generated 10 observations per device.
+- Stored latitude, longitude, device ID, and timestamp information.
+- Exported the dataset to CSV.
+
+**Output:**
+
+`data/raw/synthetic_gps_data.csv`
+
+### 7.2 Exploratory Data Analysis
+
+**Script:** `src/analyze_gps_data.py`
+
+Performed initial dataset analysis using Pandas.
+
+Activities included:
+
+- Dataset inspection.
+- Coordinate validation.
+- Missing-value checks.
+- GPS observation analysis.
+- Hourly activity exploration.
+
+### 7.3 Store Catchment Area Generation
+
+**Script:** `src/create_catchment_areas.py`
+
+Generated 500-metre catchment areas around the four synthetic retail locations.
+
+Implementation details:
+
+- Used Shapely for geometry operations.
+- Projected geographic coordinates into UTM EPSG:32644.
+- Generated buffer polygons around store locations.
+- Exported store catchment geometry information.
+
+**Output:**
+
+`data/processed/store_catchment_areas.csv`
+
+### 7.4 Geospatial Processing and Spatial Joins
+
+**Script:** `src/spatial_join_gps_to_stores.py`
+
+Used PySpark and Apache Sedona to process GPS observations and identify points intersecting store catchment polygons.
+
+Processing steps:
+
+1. Loaded GPS observations.
+2. Converted GPS coordinates into spatial points.
+3. Transformed coordinates into UTM EPSG:32644.
+4. Loaded store catchment geometries.
+5. Performed spatial intersection operations.
+6. Extracted hourly information.
+7. Calculated distinct device counts per store per hour.
+
+**Generated outputs:**
+
+- `data/processed/gps_store_matches.csv`
+- `data/processed/store_hourly_visitors.csv`
+
+### 7.5 Snowflake Data Warehousing
+
+Snowflake was used to store raw GPS observations and support geospatial data transformations.
+
+Database configuration:
+
+| Component | Name |
+|---|---|
+| Database | GEOPULSE_DB |
+| Schema | RAW |
+| Raw table | GPS_PINGS |
+| Geometry type | GEOGRAPHY |
+
+The raw GPS table includes:
+
+- DEVICEID
+- LAT
+- LONG
+- TIMESTAMP
+- LOCATION
+
+Geographic points were populated using Snowflake's `ST_MAKEPOINT` function.
+
+### 7.6 dbt Data Transformation
+
+The dbt project is maintained inside:
+
+`geopulse_dbt/`
+
+Implemented models:
+
+| Model | Description |
+|---|---|
+| `stg_gps_pings` | Staging view for raw GPS observations |
+| `store_hourly_visitors` | Store-level hourly device-count analytics table |
+
+The mart model calculates distinct devices within the 500-metre store catchments using Snowflake geospatial functions.
+
+**Data quality validation:**
+
+Six dbt tests were configured and successfully executed.
+
+Test coverage includes:
+
+- Non-null device identifiers.
+- Non-null GPS timestamps.
+- Non-null store identifiers.
+- Non-null hourly timestamps.
+- Non-null visitor counts.
+- Accepted store ID values.
+
+---
+
+## 8. Store Performance Analysis
+
+**Script:** `src/analyze_store_performance.py`
+
+Developed store-level performance summaries using hourly distinct-device counts.
+
+### Store Performance Results
+
+| Store | Total Hourly Counts | Average Hourly Count | Peak Count | Peak Hour | Rank |
+|---|---:|---:|---:|---:|---:|
+| T_Nagar | 1,692 | 70.50 | 81 | 15:00 | 1 |
+| Anna Nagar | 1,683 | 70.13 | 90 | 13:00 | 2 |
+| Velachery | 1,641 | 68.38 | 83 | 10:00 | 3 |
+| Adyar | 1,606 | 66.92 | 84 | 21:00 | 4 |
+
+**Output:**
+
+`reports/store_performance_summary.csv`
+
+**Important:** Total hourly counts represent the sum of distinct-device counts across individual hours. They are not daily distinct visitor counts.
+
+---
+
+## 9. Automated Store Insights
+
+**Script:** `src/generate_store_insights.py`
+
+Created an automated Markdown report summarizing store performance.
+
+The report includes:
+
+- Store performance rankings.
+- Average hourly device counts.
+- Peak hourly activity.
+- Store-level comparisons.
+- Analytical observations.
+
+**Output:**
+
+`reports/store_insights.md`
+
+---
+
+## 10. Store Traffic Comparison
+
+**Script:** `src/compare_store_traffic.py`
+
+Developed a comparison module to evaluate hourly traffic patterns across all four synthetic stores.
+
+### Features
+
+- Total hourly device-count comparison.
+- Average hourly counts.
+- Peak and lowest hourly activity.
+- Percentage share of total hourly counts.
+- Store performance ranking.
+
+**Output:**
+
+`reports/store_traffic_comparison.csv`
+
+### Traffic Share Results
+
+| Rank | Store | Total Hourly Counts | Traffic Share |
+|---|---|---:|---:|
+| 1 | T_Nagar | 1,692 | 25.55% |
+| 2 | Anna Nagar | 1,683 | 25.42% |
+| 3 | Velachery | 1,641 | 24.78% |
+| 4 | Adyar | 1,606 | 24.25% |
+
+---
+
+## 11. Store Traffic Visualizations
+
+**Script:** `src/visualize_store_comparison.py`
+
+Generated three visualizations to compare store-level traffic performance.
+
+### Generated Charts
+
+**1. Store Traffic Comparison**
+
+Compares total hourly device counts across the four retail locations.
+
+`reports/figures/store_traffic_comparison.png`
+
+**2. Store Traffic Share**
+
+Displays each store's percentage contribution to total hourly counts.
+
+`reports/figures/store_traffic_share.png`
+
+**3. Peak vs Lowest Traffic**
+
+Compares peak and lowest hourly device counts across stores.
+
+`reports/figures/peak_vs_lowest_traffic.png`
+
+### Hourly Store Visitor Visualization
+
+**Script:** `src/plot_store_hourly_visitors.py`
+
+Generated a line chart showing hourly distinct-device counts across the four stores.
+
+`reports/figures/store_hourly_visitors.png`
+
+---
+
+## 12. Cross-Store Device Overlap Analysis
+
+**Script:** `src/analyze_store_cannibalization.py`
+
+GeoPulse includes a cross-store device overlap analysis to identify synthetic device IDs detected within multiple retail store catchment areas.
+
+### Features
+
+- Identifies devices associated with multiple stores.
+- Calculates shared device counts for every store pair.
+- Computes Jaccard similarity.
+- Calculates pairwise overlap percentages.
+- Generates analytical CSV and Markdown reports.
+
+### Jaccard Similarity
+
+The Jaccard similarity coefficient measures the overlap between two device sets.
+
+Formula:
+
+```text
+Jaccard Similarity =
+
+Number of Shared Devices
+-----------------------
+Number of Unique Devices Across Both Stores
+```
+
+### Pairwise Overlap Results
+
+| Store Pair | Shared Devices | Jaccard Similarity |
+|---|---:|---:|
+| ADY01 – ANN01 | 708 | 71.95% |
+| ADY01 – TNG01 | 696 | 70.37% |
+| ADY01 – VEL01 | 704 | 71.26% |
+| ANN01 – TNG01 | 705 | 71.36% |
+| ANN01 – VEL01 | 718 | 73.12% |
+| TNG01 – VEL01 | 707 | 71.70% |
+
+### Key Finding
+
+The highest observed device overlap was between:
+
+**Anna Nagar (ANN01) and Velachery (VEL01)**
+
+- Shared devices: 718
+- Jaccard similarity: 73.12%
+
+The lowest observed overlap was between Adyar and T_Nagar, with 696 shared devices and a Jaccard similarity of 70.37%.
+
+### Generated Outputs
+
+- `reports/device_store_overlap.csv`
+- `reports/store_device_summary.csv`
+- `reports/store_pair_overlap.csv`
+- `reports/store_cannibalization_report.md`
+
+### Store Overlap Heatmap
+
+**Script:** `src/visualize_store_overlap.py`
+
+Generated a heatmap showing pairwise device overlap between the four retail locations.
+
+**Output:**
+
+`reports/figures/store_overlap_heatmap.png`
+
+**Methodology limitation:** GPS observations are independently generated rather than continuous device trajectories. Therefore, shared-device overlap is an analytical indicator based on synthetic observations, not proof of actual customer journeys, store switching, or retail cannibalization.
+
+---
+
+## 13. Project Results and Validation
+
+The current implementation successfully demonstrates a complete geospatial analytics workflow using synthetic GPS observations.
+
+### Processing Results
+
+| Metric | Result |
+|---|---:|
+| Input GPS records | 10,000 |
+| Synthetic devices | 1,000 |
+| Matched GPS pings | 6,860 |
+| GPS match percentage | 68.6% |
+| Synthetic stores | 4 |
+| Hourly summary records | 96 |
+| Store pairs analyzed | 6 |
+
+### Final dbt Validation
+
+| Validation | Result |
+|---|---|
+| Snowflake connection | Successful |
+| dbt debug | Passed |
+| dbt staging model | Successful |
+| dbt mart model | Successful |
+| Total dbt models | 2 |
+| dbt data quality tests | 6/6 passed |
+
+The project successfully executed both dbt models and all six configured data quality tests against Snowflake during final validation.
+
+---
+
+## 14. Repository Structure
 
 ```text
 GeoPulse-Hyper-Local-Retail-Mobility-Analytics/
@@ -112,183 +509,222 @@ GeoPulse-Hyper-Local-Retail-Mobility-Analytics/
 │   │   └── synthetic_gps_data.csv
 │   │
 │   └── processed/
-│       ├── hourly_unique_visitors.csv
-│       └── hourly_unique_visitors.png
+│       ├── store_catchment_areas.csv
+│       ├── gps_store_matches.csv
+│       └── store_hourly_visitors.csv
+│
+├── geopulse_dbt/
+│   ├── models/
+│   │   ├── staging/
+│   │   │   ├── stg_gps_pings.sql
+│   │   │   └── sources.yml
+│   │   │
+│   │   ├── marts/
+│   │   │   └── store_hourly_visitors.sql
+│   │   │
+│   │   └── schema.yml
+│   │
+│   └── dbt_project.yml
+│
+├── reports/
+│   ├── figures/
+│   │   ├── peak_vs_lowest_traffic.png
+│   │   ├── store_hourly_visitors.png
+│   │   ├── store_overlap_heatmap.png
+│   │   ├── store_traffic_comparison.png
+│   │   └── store_traffic_share.png
+│   │
+│   ├── device_store_overlap.csv
+│   ├── store_device_summary.csv
+│   ├── store_pair_overlap.csv
+│   ├── store_cannibalization_report.md
+│   ├── store_insights.md
+│   ├── store_performance_summary.csv
+│   └── store_traffic_comparison.csv
 │
 ├── src/
 │   ├── generate_gps_data.py
-│   └── analyze_gps_data.py
+│   ├── analyze_gps_data.py
+│   ├── create_catchment_areas.py
+│   ├── spatial_join_gps_to_stores.py
+│   ├── plot_store_hourly_visitors.py
+│   ├── analyze_store_performance.py
+│   ├── generate_store_insights.py
+│   ├── compare_store_traffic.py
+│   ├── visualize_store_comparison.py
+│   ├── analyze_store_cannibalization.py
+│   └── visualize_store_overlap.py
 │
 ├── sql/
 │   └── snowflake_setup.sql
 │
+├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
 
-Additional directories and modules will be introduced as development progresses.
+---
 
-## 7. Current Project Status
+## 15. Running the Project
 
-**Current Phase:** Week 1 – Data Synthesis and Snowflake Setup
+### Step 1 – Clone the Repository
 
-### Completed
+```bash
+git clone https://github.com/balaji-07-cs/GeoPulse-Hyper-Local-Retail-Mobility-Analytics.git
+```
 
-- Created and configured the GitHub repository.
-- Set up the project locally using VS Code.
-- Created the project directory structure.
-- Generated 10,000 synthetic GPS records using Python.
-- Validated the generated dataset.
-- Performed exploratory data analysis using Pandas.
-- Extracted hourly visitor activity.
-- Identified peak and lowest hourly activity.
-- Generated an hourly activity visualization.
-- Exported hourly analysis results to CSV.
-- Created a Snowflake account and configured the project database.
-- Created the `GEOPULSE_DB` database and `RAW` schema.
-- Created the `GPS_PINGS` table with a GEOGRAPHY column.
-- Loaded 10,000 GPS records into Snowflake.
-- Populated geographic points using Snowflake's `ST_MAKEPOINT` function.
-- Documented Snowflake setup and validation SQL in `sql/snowflake_setup.sql`.
-- Committed and pushed previous development work to GitHub.
+```bash
+cd GeoPulse-Hyper-Local-Retail-Mobility-Analytics
+```
 
-### Upcoming
+### Step 2 – Create a Virtual Environment
 
-- Prepare store location data.
-- Configure Apache Sedona and PySpark.
-- Create 500-meter store catchment areas.
-- Perform spatial joins between GPS pings and store polygons.
-- Build dbt transformation models.
-- Calculate unique visitors per store per hour.
+```bash
+python -m venv .venv
+```
 
-**Important:** The current hourly analysis measures unique devices across the entire dataset. It is not yet store-level unique visitor analysis. Store-level metrics will be developed after spatial processing.
+Activate it on Windows PowerShell:
 
-## 8. Project Goal
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-The ultimate goal of GeoPulse is to build a hyper-local retail mobility analytics solution that helps businesses understand customer movement, evaluate store performance, identify potential store cannibalization, and make informed location-based business decisions.
+### Step 3 – Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4 – Run the Python Analytics Scripts
+
+Run the required scripts from the project root:
+
+```bash
+python src/generate_gps_data.py
+```
+
+```bash
+python src/create_catchment_areas.py
+```
+
+```bash
+python src/spatial_join_gps_to_stores.py
+```
+
+```bash
+python src/analyze_store_performance.py
+```
+
+```bash
+python src/compare_store_traffic.py
+```
+
+```bash
+python src/analyze_store_cannibalization.py
+```
+
+Generate visualizations:
+
+```bash
+python src/plot_store_hourly_visitors.py
+```
+
+```bash
+python src/visualize_store_comparison.py
+```
+
+```bash
+python src/visualize_store_overlap.py
+```
+
+### Step 5 – Configure Snowflake and dbt
+
+Configure your Snowflake connection through your local dbt profile.
+
+Do not commit credentials or passwords to the repository.
+
+Navigate to the dbt project:
+
+```bash
+cd geopulse_dbt
+```
+
+Check the connection:
+
+```bash
+dbt debug
+```
+
+Execute models:
+
+```bash
+dbt run
+```
+
+Run data quality tests:
+
+```bash
+dbt test
+```
+
+**Note:** Snowflake account access, database configuration, and the required source data must be available to execute the dbt models successfully.
 
 ---
 
+## 16. Limitations
 
-### Week 2 – Spatial Analytics and dbt (Completed)
+The current implementation has the following limitations:
 
-Implemented a geospatial analytics pipeline using Apache Sedona, PySpark, Snowflake, and dbt.
+1. The GPS dataset is synthetic and does not represent real customer location information.
+2. GPS observations are independently generated and do not form continuous movement trajectories.
+3. Device counts are analytical proxies, not verified physical customer visits.
+4. Hourly distinct-device counts cannot be interpreted as daily unique visitors.
+5. Cross-store overlap does not prove customer switching or actual retail cannibalization.
+6. The project currently focuses on batch processing and analytical reporting.
+7. Large-scale performance benchmarking using millions of GPS records has not been completed.
+8. An interactive React and Kepler.gl dashboard has not yet been implemented.
 
-**Completed tasks:**
-- Generated 500-metre store catchment areas using geospatial buffers.
-- Processed 10,000 synthetic GPS pings using Apache Sedona.
-- Performed spatial joins to identify GPS pings within store catchments.
-- Calculated distinct device counts per store per hour.
-- Connected dbt to Snowflake.
-- Created a GPS staging view (`stg_gps_pings`).
-- Created an hourly visitor analytics table (`store_hourly_visitors`).
-- Added and successfully executed six dbt data quality tests.
+These limitations should be considered when interpreting the analytical results.
 
-**Results:**
-- GPS records processed: 10,000
-- Matched GPS pings: 6,860
-- Synthetic stores analyzed: 4
-- Hourly visitor summary records: 96
-- dbt models executed successfully: 2
-- dbt tests passed: 6/6
+---
 
+## 17. Future Enhancements
 
-### Hourly Store Visitor Visualization
-- Created a Python visualization script to plot hourly unique device counts across all four synthetic retail store locations.
-- Generated a line chart comparing hourly activity patterns between stores.
-- Saved the visualization to `reports/figures/store_hourly_visitors.png`.
-- Script: `src/plot_store_hourly_visitors.py`
+Potential future development includes:
 
-**Output:** Hourly Unique Device Counts by Store chart.
+- Integrating Kepler.gl for interactive geospatial visualization.
+- Developing a React-based retail analytics dashboard.
+- Implementing Apache Airflow for workflow orchestration.
+- Introducing H3 hexagonal spatial indexing.
+- Building 3D spatial traffic visualizations.
+- Adding an interactive 24-hour timeline.
+- Generating continuous synthetic mobility trajectories.
+- Evaluating scalability with larger GPS datasets.
+- Improving retail catchment and cannibalization analysis.
 
-This visualization helps compare hourly activity patterns across store catchment areas and identify potential peak activity periods.
+---
 
-### Automated Store Performance Insights
+## 18. Conclusion
 
-- Developed `src/generate_store_insights.py` to automatically generate store performance reports.
-- Analyzed hourly unique-device counts across all four synthetic retail stores.
-- Identified the highest total hourly count and the highest single-hour activity.
-- Generated store performance rankings.
-- Included average hourly counts, peak activity counts, and peak activity hours.
-- Saved the automated Markdown report to `reports/store_insights.md`.
+GeoPulse demonstrates how synthetic location data can be transformed into useful retail analytics through geospatial processing and data engineering.
 
-**Generated Report:** `reports/store_insights.md`
+The completed implementation combines Python, PySpark, Apache Sedona, Snowflake, and dbt to generate store-level hourly analytics, compare retail traffic patterns, and identify potential overlap between store catchment areas.
 
-**Key Highlights:**
-- T_Nagar ranked first with 1,692 total hourly counts.
-- Anna Nagar ranked second with 1,683.
-- Velachery ranked third with 1,641.
-- Adyar ranked fourth with 1,606.
+The project provides a foundation for future development of advanced retail mobility analytics and location-intelligence solutions.
 
-*Note: Total hourly counts represent the sum of hourly unique-device counts, not distinct daily visitors. All results are based on synthetic GPS data.*
+---
 
-### Store Traffic Comparison Analysis
+## Project Information
 
-- Developed `src/compare_store_traffic.py` to compare traffic patterns across four retail stores.
-- Calculated total hourly visitor counts and average hourly counts.
-- Identified peak and lowest hourly visitor counts for each store.
-- Calculated each store's percentage share of total hourly traffic.
-- Ranked stores based on their total hourly visitor counts.
-- Exported the comparison results to `reports/store_traffic_comparison.csv`.
+**Project Name:** GeoPulse – Hyper-Local Retail Mobility Analytics
 
-**Traffic Ranking:**
+**Domain:** Retail Strategy & Geospatial Analytics
 
-| Rank | Store | Total Hourly Counts | Traffic Share |
-|---|---|---:|---:|
-| 1 | T_Nagar | 1,692 | 25.55% |
-| 2 | Anna Nagar | 1,683 | 25.42% |
-| 3 | Velachery | 1,641 | 24.78% |
-| 4 | Adyar | 1,606 | 24.25% |
+**Data:** Synthetic GPS Mobility Dataset
 
-*Note: Traffic counts represent the sum of hourly unique-device counts, not daily distinct visitors. Results are based on synthetic GPS data.*
+**Primary Technologies:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas, Matplotlib
 
-### Store Traffic Comparison Visualizations
+**Development Environment:** Windows 11, VS Code, Python 3.11
 
-Developed `src/visualize_store_comparison.py` to generate visual insights from store traffic comparison data.
-
-**Visualizations generated:**
-
-1. **Store Traffic Comparison:** Bar chart comparing total hourly visitor counts across four retail stores.
-2. **Store Traffic Share:** Pie chart illustrating each store's percentage contribution to total hourly traffic.
-3. **Peak vs Lowest Traffic:** Grouped bar chart comparing peak and lowest hourly unique-device counts across stores.
-
-**Generated Outputs:**
-- `reports/figures/store_traffic_comparison.png`
-- `reports/figures/store_traffic_share.png`
-- `reports/figures/peak_vs_lowest_traffic.png`
-
-**Technologies:** Python, Pandas, Matplotlib.
-
-*Note: All metrics are derived from synthetic GPS data. Hourly counts represent distinct devices within each hour, not daily distinct visitors.*
-
-### Cross-Store Device Overlap Analysis
-
-GeoPulse includes a cross-store device overlap analysis to identify devices detected within multiple store catchment areas.
-
-**Features:**
-- Identifies devices matched to multiple stores.
-- Calculates shared device counts for every store pair.
-- Computes Jaccard similarity and overlap percentages.
-- Generates CSV reports and a store-overlap heatmap.
-
-**Generated outputs:**
-- `reports/device_store_overlap.csv`
-- `reports/store_pair_overlap.csv`
-- `reports/store_cannibalization_report.md`
-- `reports/figures/store_overlap_heatmap.png`
-
-**Key finding:** The highest observed overlap was between Anna Nagar and Velachery, with 718 shared devices and a Jaccard similarity of 73.12%.
-
-**Methodology note:** The GPS dataset is synthetic, and its pings are independently generated rather than continuous device trajectories. Therefore, the overlap results are analytical indicators, not proof of actual customer journeys or retail cannibalization.
-
-
-
-**Technology stack:** Python, PySpark, Apache Sedona, Snowflake, dbt, SQL, Pandas.
-
-**Note:** GPS records and store coordinates are synthetic. Visitor counts represent distinct devices detected within 500-metre catchment areas, not verified physical visits.
-
-
-
-**Project:** GeoPulse – Hyper-Local Retail Mobility Analytics  
-**Domain:** Retail Strategy & Geospatial Analytics  
-**Development Environment:** Python | VS Code | Snowflake | GitHub
+**Repository:**  
+https://github.com/balaji-07-cs/GeoPulse-Hyper-Local-Retail-Mobility-Analytics
